@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DCON｜介護現場の「経験差」を埋めるAR×AI</title>
+  <meta name="description" content="新人とベテランの経験差によるケア品質ギャップに対し、ARグラス×AIで行動支援・記録・申し送りを統合。" />
+
+  <style>
+    :root {
+      --max-width: 1100px;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --accent: #ef4444;
+      --border: rgba(15, 23, 42, 0.10);
+      --card: #ffffff;
+      --shadow: 0 10px 24px rgba(17,24,39,0.08);
+      --radius: 18px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+      color: var(--text-main);
+      background: linear-gradient(180deg, #ffffff 0%, #fef2f2 100%);
+    }
+    a { color: inherit; text-decoration: none; }
+
+    .container { max-width: var(--max-width); margin: 0 auto; padding: 0 1.5rem; }
+
+    /* header */
+    .top {
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+    .top-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.9rem 0;
+    }
+    .back {
+      border: 1px solid rgba(148,163,184,0.7);
+      padding: 0.55rem 0.95rem; border-radius: 999px;
+      font-weight: 700; font-size: 0.9rem;
+      background: #fff;
+    }
+    .back:hover { border-color: var(--accent); }
+
+    /* hero */
+    .hero { padding: 2.6rem 0 1.8rem; }
+    .tag {
+      display: inline-block; margin-bottom: 0.7rem;
+      padding: 0.35rem 0.65rem; border-radius: 0.5rem;
+      border: 1px solid rgba(148,163,184,0.7);
+      font-size: 0.78rem; font-weight: 800; letter-spacing: 0.08em;
+      background: #fff;
+    }
+    h1 { margin: 0 0 0.8rem; font-size: 2rem; line-height: 1.25; font-weight: 900; }
+    .sub { color: var(--text-muted); line-height: 1.9; max-width: 52rem; }
+
+    /* section */
+    .section { padding: 1.2rem 0 2.4rem; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+    .card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); box-shadow: var(--shadow);
+      padding: 1.5rem; margin-bottom: 1.2rem;
+    }
+    .label {
+      display: inline-block; margin-bottom: 0.6rem;
+      padding: 0.3rem 0.6rem; border-radius: 0.5rem;
+      border: 1px solid rgba(148,163,184,0.7);
+      font-size: 0.75rem; font-weight: 800; letter-spacing: 0.08em;
+      background: #fff;
+    }
+    h2 { margin: 0 0 0.6rem; font-size: 1.15rem; font-weight: 900; }
+    p, li { line-height: 1.9; font-size: 0.95rem; }
+    ul { margin: 0.4rem 0 0; padding-left: 1.2rem; }
+
+    .kpi {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 0.9rem; margin-top: 0.9rem;
+    }
+    .kpi-item { border: 1px solid var(--border); border-radius: 14px; padding: 0.85rem; }
+    .kpi-num { font-weight: 900; font-size: 1.25rem; }
+    .kpi-cap { color: var(--text-muted); font-size: 0.85rem; }
+
+    .pill-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.8rem; }
+    .pill {
+      display: inline-block;
+      border: 1px solid rgba(148,163,184,0.7);
+      background: #fff;
+      padding: 0.35rem 0.7rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    @media (max-width: 900px) {
+      h1 { font-size: 1.7rem; }
+      .grid { grid-template-columns: 1fr; }
+      .kpi { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="top">
+    <div class="container">
+      <div class="top-inner">
+        <a class="back" href="index.html#projects">← プロジェクト一覧へ</a>
+        <div>DCON / CARE × AR × AI</div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="tag">DCON 2025</div>
+        <h1>介護現場の「経験差」を埋める<br>AR×AIプロダクト</h1>
+        <p class="sub">
+          新人とベテランの経験差が、そのままケア品質の差になる——。
+          この課題に対し、ARグラスとAIで「いま何をすべきか」を現場で支援し、
+          記録・申し送り・気づきを統合するプロダクトを開発しています。
+        </p>
+        <div class="pill-row">
+          <span class="pill">現場ヒアリング</span>
+          <span class="pill">MVP設計</span>
+          <span class="pill">AR / 音声UI</span>
+          <span class="pill">LLM / 予測AI</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="grid">
+          <div class="card">
+            <div class="label">課題</div>
+            <h2>なぜ解くべきか</h2>
+            <p>
+              介護現場は人手不足が進む一方、ケアは「暗黙知（経験）」への依存が大きい。
+              新人・外国人・スポット人材が増えるほど、教育負担が増え、品質がブレやすい。
+              この“経験差”を情報で埋めることで、現場の負担を下げつつ、尊厳あるケアを守ることを目指します。
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="label">解決策</div>
+            <h2>AR×AIで行動支援</h2>
+            <ul>
+              <li>見回り・食事・排泄・創部などのタスクを、状況に応じて提示</li>
+              <li>音声での記録（ボタン操作なし）→自動でログ化</li>
+              <li>申し送り（引き継ぎ）をリアルタイムで整理・共有</li>
+              <li>ベテランの「気づき」を構造化し、再現可能にする</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="label">自分の役割</div>
+          <h2>担当したこと</h2>
+          <ul>
+            <li>チーム立ち上げ（メンバー集め / 役割設計）</li>
+            <li>施設ヒアリングの設計と実行（観察・課題抽出・要件整理）</li>
+            <li>MVP機能設計（申し送り/音声記録/行動支援）</li>
+            <li>AI設計（方言→標準語変換、排泄・食事などのイベント予測）</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="label">進捗</div>
+          <h2>いまどこまで来ているか</h2>
+          <div class="kpi">
+            <div class="kpi-item"><div class="kpi-num">現場調査</div><div class="kpi-cap">施設見学/ヒアリング継続</div></div>
+            <div class="kpi-item"><div class="kpi-num">試作</div><div class="kpi-cap">音声ログ・申し送りUI</div></div>
+            <div class="kpi-item"><div class="kpi-num">AI</div><div class="kpi-cap">翻訳LLM / 予測モデル</div></div>
+          </div>
+          <p style="margin-top:0.9rem; color: var(--text-muted);">
+            ※ここは事実ベースで随時アップデートしていく想定です。
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="label">学び</div>
+          <h2>この経験から得たこと</h2>
+          <ul>
+            <li>課題の本質は「作業」ではなく「判断」や「気づき」にある</li>
+            <li>現場で使われるには、操作ではなく“流れ”に溶け込むUIが重要</li>
+            <li>AIは単体で価値にならない。現場導線に組み込むことで初めて効く</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
