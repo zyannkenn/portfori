@@ -9,20 +9,20 @@
   <style>
     :root {
       --max-width: 1100px;
-      --text-main: #0f172a;
-      --text-muted: #475569;
-      --accent: #ef4444;
-      --border: rgba(15, 23, 42, 0.10);
+      --text-main: #000000;
+      --text-muted: #000000;
+      --accent: #ff0000;
+      --border: #000000;
       --card: #ffffff;
-      --shadow: 0 10px 24px rgba(17,24,39,0.08);
+      --shadow: none;
       --radius: 18px;
     }
     * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: ui-sans-serif, system-ui, -apple-system, "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
-      color: var(--text-main);
-      background: linear-gradient(180deg, #ffffff 0%, #fef2f2 100%);
+      color: #000000;
+      background: #ffffff;
     }
     a { color: inherit; text-decoration: none; }
 
@@ -40,61 +40,66 @@
       padding: 0.9rem 0;
     }
     .back {
-      border: 1px solid rgba(148,163,184,0.7);
+      border: 1px solid #000000;
       padding: 0.55rem 0.95rem; border-radius: 999px;
       font-weight: 700; font-size: 0.9rem;
       background: #fff;
+      color: #000000;
     }
-    .back:hover { border-color: var(--accent); }
+    .back:hover { border-color: #ff0000; }
 
     /* hero */
     .hero { padding: 2.6rem 0 1.8rem; }
     .tag {
       display: inline-block; margin-bottom: 0.7rem;
       padding: 0.35rem 0.65rem; border-radius: 0.5rem;
-      border: 1px solid rgba(148,163,184,0.7);
+      border: 1px solid #000000;
       font-size: 0.78rem; font-weight: 800; letter-spacing: 0.08em;
       background: #fff;
+      color: #000000;
     }
-    h1 { margin: 0 0 0.8rem; font-size: 2rem; line-height: 1.25; font-weight: 900; }
-    .sub { color: var(--text-muted); line-height: 1.9; max-width: 52rem; }
+    h1 { margin: 0 0 0.8rem; font-size: 2rem; line-height: 1.25; font-weight: 900; color: #000000; }
+    .sub { color: #000000; line-height: 1.9; max-width: 52rem; }
 
     /* section */
     .section { padding: 1.2rem 0 2.4rem; }
     .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
     .card {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: var(--radius); box-shadow: var(--shadow);
+      background: var(--card); border: 1px solid #000000;
+      border-radius: var(--radius); box-shadow: none;
       padding: 1.5rem; margin-bottom: 1.2rem;
+      color: #000000;
     }
     .label {
       display: inline-block; margin-bottom: 0.6rem;
       padding: 0.3rem 0.6rem; border-radius: 0.5rem;
-      border: 1px solid rgba(148,163,184,0.7);
+      border: 1px solid #000000;
       font-size: 0.75rem; font-weight: 800; letter-spacing: 0.08em;
       background: #fff;
+      color: #000000;
     }
-    h2 { margin: 0 0 0.6rem; font-size: 1.15rem; font-weight: 900; }
-    p, li { line-height: 1.9; font-size: 0.95rem; }
-    ul { margin: 0.4rem 0 0; padding-left: 1.2rem; }
+    h2 { margin: 0 0 0.6rem; font-size: 1.15rem; font-weight: 900; color: #000000; }
+    p, li { line-height: 1.9; font-size: 0.95rem; color: #000000; }
+    ul { margin: 0.4rem 0 0; padding-left: 1.2rem; color: #000000; }
 
     .kpi {
       display: grid; grid-template-columns: repeat(3,1fr);
       gap: 0.9rem; margin-top: 0.9rem;
     }
-    .kpi-item { border: 1px solid var(--border); border-radius: 14px; padding: 0.85rem; }
-    .kpi-num { font-weight: 900; font-size: 1.25rem; }
-    .kpi-cap { color: var(--text-muted); font-size: 0.85rem; }
+    .kpi-item { border: 1px solid #000000; border-radius: 14px; padding: 0.85rem; background: #ffffff; }
+    .kpi-num { font-weight: 900; font-size: 1.25rem; color: #000000; }
+    .kpi-cap { color: #000000; font-size: 0.85rem; }
 
     .pill-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.8rem; }
     .pill {
       display: inline-block;
-      border: 1px solid rgba(148,163,184,0.7);
+      border: 1px solid #000000;
       background: #fff;
       padding: 0.35rem 0.7rem;
       border-radius: 999px;
       font-size: 0.85rem;
       font-weight: 700;
+      color: #000000;
     }
 
     @media (max-width: 900px) {
