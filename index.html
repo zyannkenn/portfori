@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600;700&display=swap" rel="stylesheet">
+
   <style>
     :root {
       --bg-main: #000000;
@@ -34,77 +35,64 @@
     }
 
     /* ===== header ===== */
-    /* --- Hero セクション中央寄せに変更 --- */
-/* --- Hero セクション（左右に画像＋中央テキスト） --- */
-.hero {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  /* 左右の余白をゼロにして、顔をページ端まで持っていく */
-  padding: 4.5rem 0;
-  text-align: left;
-  background: linear-gradient(180deg, #ffffff 0%, #fef2f2 100%);
-}
+    /* --- Hero セクション（右に画像＋左にテキスト） --- */
+    .hero {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4.5rem 0;
+      text-align: left;
+      background: linear-gradient(180deg, #ffffff 0%, #fef2f2 100%);
+    }
 
-.hero-inner {
-  /* max-widthを外して、横幅いっぱいに広げる */
-  width: 100%;
-  margin: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 2rem;  /* 中央の余白を少し詰める */
-}
-.nowrap {
-  white-space: nowrap;
-}
+    .hero-inner {
+      width: 100%;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+    }
 
-.hero-copy {
-  /* テキストブロックの最大幅だけここで制限 */
-  flex: 0 1 540px;
-  max-width: 540px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  /* 顔との距離はここで調整（もっと寄せたければ 2rem とかにしてOK） */
-  margin: 0 3rem;
-}
-/* タグは中央でも成立するよう微調整 */
-.hero-tag {
-  margin: 0 0 1.1rem;
-}
+    .nowrap { white-space: nowrap; }
 
-/* 左右の顔コンテナ */
-/* 左右の顔コンテナ */
-/* 左右の顔コンテナ：幅は画面の3割、高さは画面の7割くらいまで使う */
-.hero-face {
-  /* 顔をより端に寄せつつ、半面だけ見えるよう横幅を少し狭くする */
-  flex: 0 0 24vw;   /* 画面幅の約24%を顔の横幅に（半分だけ見えるイメージ） */
-  height: 72vh;
-}
+    /* テキストはできるだけ広く確保して、幅縮小で改行地獄にならないようにする */
+    .hero-copy {
+      flex: 1 1 720px;
+      max-width: 720px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin: 0 2rem 0 0;
+    }
 
-/* 顔画像：コンテナいっぱいに表示してズーム＆半分表示 */
-.hero-face-inner {
-  width: 100%;
-  height: 100%;
-  border-radius: 0;
-  overflow: visible;
-  background-color: transparent;
-  /* 縦方向は全体が見えるように高さ100%に合わせて、横方向だけをトリミング */
-  background-size: auto 100%;        /* 画像の高さをコンテナにフィットさせる */
-  background-position: center center; /* 基本は中央寄せ */
-  background-repeat: no-repeat;
-  box-shadow: none;
-}
-/* 左カードには画像の「さらに外側（右側）を切り落として、内側だけ見せる」 */
-.hero-face-left {
-  background-position: 300% center;  /* 右方向にオフセットして外側を多めにカット */
-}
+    /* タグは中央でも成立するよう微調整 */
+    .hero-tag { margin: 0 0 1.1rem; }
 
-/* 右カードには画像の「さらに外側（左側）を切り落として、内側だけ見せる」 */
-.hero-face-right {
-  background-position: -230% center;  /* 左方向にオフセットして外側を多めにカット */
-}
+    /* 右側の顔コンテナ（右だけ） */
+    .hero-face {
+      flex: 0 0 24vw;
+      height: 72vh;
+    }
+
+    /* 顔画像：コンテナいっぱいに表示してズーム＆内側を見せる */
+    .hero-face-inner{
+      width: 100%;
+      height: 100%;
+      border-radius: 0;
+      overflow: hidden;              /* ← visible → hidden にする（見切れ防止） */
+      background-color: transparent;
+      background-size: cover;        /* ← auto 100% より安全に「はみ出さず埋める」 */
+      background-position: 70% center; /* ← ちょい右寄せ（内側が見える） */
+      background-repeat: no-repeat;
+      box-shadow: none;
+    }
+
+    /* 右顔専用の極端な指定は弱める or 消す */
+    .hero-face-right{
+      background-position: 70% center; /* ← -230% をやめる */
+    }
+
 
     /* ===== hero ===== */
     .hero-tag-dot {
@@ -141,7 +129,7 @@
       display: inline-block;
       padding: 0.35rem 0.65rem;
       border: 1px solid rgba(128, 128, 128, 0.7);
-      border-radius: 0.5rem; /* 四角っぽい角丸 */
+      border-radius: 0.5rem;
       background: #ffffff;
       color: var(--text-main);
       font-size: 0.78rem;
@@ -151,7 +139,7 @@
     }
 
     .hero-body--future {
-      margin-bottom: 1.8rem; /* 次のボタンまで余白を戻す */
+      margin-bottom: 1.8rem;
     }
     .hero-body span { color: var(--accent-red); font-weight: 600; }
     .hero-meta {
@@ -282,25 +270,26 @@
       box-shadow: 0 10px 24px rgba(0,0,0,0.10);
       border-color: rgba(239, 68, 68, 0.35);
     }
-    /* ===== project thumbnail (fix for unstyled <img>) ===== */
-.project-thumb {
-  width: 100%;
-  border-radius: 14px;
-  overflow: hidden;
-  border: 1px solid rgba(17,24,39,0.10);
-  background: #f3f4f6;
-  box-shadow: 0 10px 24px rgba(17,24,39,0.08);
-  margin-bottom: 0.9rem
-}
 
-.project-thumb img {
-  width: 100%;
-  height: 100%;
-  display: block;
-  aspect-ratio: 16 / 10;
-  object-fit: cover;
-  object-position: center;
-}
+    /* ===== project thumbnail ===== */
+    .project-thumb {
+      width: 100%;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(17,24,39,0.10);
+      background: #f3f4f6;
+      box-shadow: 0 10px 24px rgba(17,24,39,0.08);
+      margin-bottom: 0.9rem
+    }
+    .project-thumb img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      object-position: center;
+    }
+
     .project-tag {
       font-size: 0.7rem;
       color: #fca5a5;
@@ -406,18 +395,6 @@
       color: var(--accent-red);
     }
 
-    @media (max-width: 900px) {
-      .works-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-    }
-
-    @media (max-width: 640px) {
-      .works-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
     /* About & Contact */
     .about-layout {
       display: grid;
@@ -458,154 +435,106 @@
       text-decoration: underline;
     }
 
-    /* responsive */
-    @media (max-width: 900px) {
-      .hero-inner {
-        gap: 2.2rem;
-      }
-        .hero-face {
-    max-width: 260px;
-    width: 70%;
-  }
-      .projects-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-      .about-layout {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-    @media (max-width: 640px) {
-      .nav-links { display: none; }
-      .nav-inner, .hero, .section { padding-inline: 1.1rem; }
-      .projects-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
+    /* sub projects */
     .subprojects-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1.0rem;
-}
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.0rem;
+    }
 
-.subproject-item {
-  border-radius: 0.9rem;
-  padding: 0.9rem 1.0rem;
-  background: #ffffff;
-  border: 1px solid rgba(229, 231, 235, 0.9);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  font-size: 0.85rem;
-  line-height: 1.7;
-  color: var(--text-main);
-}
+    .subproject-item {
+      border-radius: 0.9rem;
+      padding: 0.9rem 1.0rem;
+      background: #ffffff;
+      border: 1px solid rgba(229, 231, 235, 0.9);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      font-size: 0.85rem;
+      line-height: 1.7;
+      color: var(--text-main);
+    }
 
-.subproject-tag {
-  font-size: 0.72rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: #fca5a5;
-  margin-bottom: 0.2rem;
-}
+    .subproject-tag {
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #fca5a5;
+      margin-bottom: 0.2rem;
+    }
 
-.subproject-title {
-  font-size: 0.95rem;
-  font-weight: 600;
-  margin-bottom: 0.3rem;
-}
+    .subproject-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
 
-.subproject-body {
-  font-size: 0.83rem;
-  color: var(--text-main);
-}
+    .subproject-body {
+      font-size: 0.83rem;
+      color: var(--text-main);
+    }
 
-/* ===== simple intro (temporary) ===== */
-.simple-intro {
-  padding: 2.2rem 1.5rem 2.8rem;
-  background: #ffffff;
-}
+    /* ===== simple intro (temporary) ===== */
+    .simple-intro {
+      padding: 2.2rem 1.5rem 2.8rem;
+      background: #ffffff;
+    }
 
-.simple-intro-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: 2.2rem;
-  align-items: start;
-}
+    .simple-intro-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 2.2rem;
+      align-items: start;
+    }
 
-.simple-intro-eyebrow {
-  font-size: 0.7rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: #6b7280;
-}
+    .simple-intro-eyebrow {
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #6b7280;
+    }
 
-.simple-intro-title {
-  font-size: clamp(2.0rem, 3.2vw, 2.6rem);
-  font-weight: 800;
-  line-height: 1.4;
-  color: #111827;
-}
+    .simple-intro-title {
+      font-size: clamp(2.0rem, 3.2vw, 2.6rem);
+      font-weight: 800;
+      line-height: 1.4;
+      color: #111827;
+    }
 
-.simple-intro-title span {
-  color: #2563eb; /* 落ち着いた青 */
-}
+    .simple-intro-title span {
+      color: #2563eb;
+    }
 
-.simple-intro-body {
-  font-size: 1.05rem;
-  line-height: 1.9;
-  color: #374151;
-  max-width: 52rem;
-}
+    .simple-intro-body {
+      font-size: 1.05rem;
+      line-height: 1.9;
+      color: #374151;
+      max-width: 52rem;
+    }
 
-.simple-intro-left {
-  display: flex;
-  flex-direction: column;
-  gap: 0.9rem;
-  padding-top: 0.8rem; /* ← これで少し下に下がる */
-}
+    .simple-intro-left {
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+      padding-top: 0.8rem;
+    }
 
-.simple-intro-photo {
-  width: 100%;
-  border-radius: 24px;
-  overflow: hidden;
-  background: #f3f4f6;
-  border: 1px solid rgba(17,24,39,0.10);
-  box-shadow: 0 10px 30px rgba(17, 24, 39, 0.10);
-}
+    .simple-intro-photo {
+      width: 100%;
+      border-radius: 24px;
+      overflow: hidden;
+      background: #f3f4f6;
+      border: 1px solid rgba(17,24,39,0.10);
+      box-shadow: 0 10px 30px rgba(17, 24, 39, 0.10);
+    }
 
-.simple-intro-photo img {
-  width: 100%;
-  height: 100%;
-  display: block;
-  aspect-ratio: 4 / 5;
-  object-fit: cover;
-  object-position: center;
-}
-
-@media (max-width: 900px) {
-  .simple-intro-inner {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-  .simple-intro-photo img {
-    aspect-ratio: 16 / 10;
-  }
-}
-
-/* スマホ */
-@media (max-width: 640px) {
-  .simple-intro {
-    padding: 2.4rem 1.2rem 2.0rem;
-  }
-  .simple-intro-title {
-    font-size: 1.8rem;
-  }
-}
-
-    @media (max-width: 640px) {
-      .subprojects-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
+    .simple-intro-photo img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      object-position: center;
     }
 
     /* ===== Investment ===== */
@@ -643,8 +572,102 @@
       line-height: 1.8;
       color: var(--text-main);
     }
+
+    /* ===== responsive ===== */
+    /* ===== responsive ===== */
+@media (max-width: 900px) {
+  /* heroは縦並びにして、テキストを全幅で読めるようにする */
+  .hero-inner{
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.6rem;
+  }
+
+  /* スマホ/タブレットで左余白ゼロ問題を防ぐ（左右paddingを付ける） */
+  .hero-copy{
+    width: 100%;
+    max-width: 680px;
+    margin: 0 auto;         /* 左に寄らないよう中央 */
+    padding: 0 1.1rem;      /* ← 左右余白を確保 */
+  }
+
+  /* 画像は下に回し、横幅100%で見やすく */
+  .hero-face{
+    width: 100%;
+    flex: 0 0 auto;
+    height: 38vh;
+  }
+
+  /* スマホでは顔を中央にして見切れにくく */
+  .hero-face-inner{
+    overflow: hidden;
+    background-size: cover;
+    background-position: center center;
+  }
+
+  .projects-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .about-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .works-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .subprojects-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .works-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .about-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .nav-links { display: none; }
+  .nav-inner, .hero, .section { padding-inline: 1.1rem; }
+
+  /* さらに小さい画面でも hero の左右余白を保つ */
+  .hero-copy{
+    padding: 0 1.2rem;
+  }
+
+  .projects-grid { grid-template-columns: minmax(0, 1fr); }
+  .works-grid { grid-template-columns: minmax(0, 1fr); }
+  .subprojects-grid { grid-template-columns: minmax(0, 1fr); }
+
+  .simple-intro {
+    padding: 2.4rem 1.2rem 2.0rem;
+  }
+  .simple-intro-title { font-size: 1.8rem; }
+
+  .simple-intro-inner {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .simple-intro-photo img {
+    aspect-ratio: 16 / 10;
+  }
+
+  .hero-face{
+    height: 30vh;
+  }
+
+  .hero-body{
+    font-size: 0.95rem;
+    line-height: 1.9;
+  }
+}
+
+    
   </style>
 </head>
+
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     // 1秒ごとに切り替える画像リスト（順番：や → れ → ば → で → き → る）
@@ -658,101 +681,100 @@
     ];
 
     let heroIndex = 0;
-    const leftFace  = document.getElementById("heroFaceLeft");
     const rightFace = document.getElementById("heroFaceRight");
 
-    function updateHeroFaces() {
+    function updateHeroFace() {
       const src = heroImages[heroIndex];
-      // 左右どちらも同じ画像をセット、表示位置はCSS側で左右入れ替え
-      if (leftFace && rightFace) {
-        leftFace.style.backgroundImage  = `url("${src}")`;
+      if (rightFace) {
         rightFace.style.backgroundImage = `url("${src}")`;
       }
-
       heroIndex = (heroIndex + 1) % heroImages.length;
     }
 
     // 最初の1枚を表示してから、1秒ごとに更新
-    updateHeroFaces();
-    setInterval(updateHeroFaces, 1000);
+    updateHeroFace();
+    setInterval(updateHeroFace, 1000);
   });
 </script>
+
 <body>
-    <!-- テスト：画像がちゃんと見えるか確認 -->
   <div class="page">
     <!-- simple intro (temporary) -->
     <section class="simple-intro">
       <div class="simple-intro-inner">
-        <div class="simple-intro-left">
-          <p class="simple-intro-eyebrow">My Purpose</p>
-          <h1 class="simple-intro-title">
-            <span>根拠のない自信でも</span>
-            <br><span class="nowrap">やればできるを、行動で証明する。</span>
-          </h1>
-          <h2 class="simple-intro-body2">
-  これまで、<strong>スポンサー2,700万円の獲得</strong>や<strong>高専祭の打ち上げ花火</strong>の実現など、
-  「やる」と決めたことを周りを巻き込みながら形にしてきました。<br>
-  今は<strong>介護現場の人手不足を</strong>スポットワークで解決する、AR×AIのプロダクト開発に挑戦中です。
-          </h2>
-        </div>
 
-        <div class="simple-intro-photo">
-          <img src="images/えだみさ.png" alt="江田 岬毅" />
-        </div>
-      </div>
+  <!-- 画像を先に -->
+  <div class="simple-intro-photo">
+      <img src="images/えだみさ.png" alt="江田 岬毅" />
+    </div>
+
+    <!-- テキスト -->
+    <div class="simple-intro-left">
+      <p class="simple-intro-eyebrow">My Purpose</p>
+      <h1 class="simple-intro-title">
+        <span>根拠のない自信でも</span>
+        <br><span class="nowrap">やればできるを、行動で証明する。</span>
+      </h1>
+      <h2 class="simple-intro-body2">
+        これまで、<strong>スポンサー2,700万円の獲得</strong>や
+        <strong>高専祭の打ち上げ花火</strong>の実現など、
+        「やる」と決めたことを周りを巻き込みながら形にしてきました。<br>
+        今は<strong>介護現場の人手不足を</strong>スポットワークで解決する、
+        AR×AIのプロダクト開発に挑戦中です。
+      </h2>
+    </div>
+
+  </div>
+
     </section>
+
     <!-- header -->
     <header class="site-header">
       <div class="nav-inner">
         <div class="brand">
           <div class="brand-mark"></div>
-
+        </div>
+      </div>
     </header>
 
     <!-- hero -->
     <main>
       <section class="hero">
-  <div class="hero-inner">
-    <!-- 左側の顔 -->
-    <div class="hero-face">
-      <div class="hero-face-inner hero-face-left" id="heroFaceLeft"></div>
-    </div>
+        <div class="hero-inner">
+          <!-- 左は消して、テキスト → 右画像 の順にする -->
+          <div class="hero-copy">
+            <div class="hero-tag"></div>
+            <p class="hero-eyebrow">ABOUT</p>
+            <h1 class="hero-title-ja">
+              自己紹介と<br><span>今後やりたいこと</span>
+            </h1>
 
-    <!-- 真ん中のテキスト（今の hero-copy をそのまま） -->
-    <div class="hero-copy">
-      <div class="hero-tag">
-      </div>
-      <p class="hero-eyebrow">ABOUT</p>
-      <h1 class="hero-title-ja">
-        自己紹介と<br><span>今後やりたいこと</span>
-      </h1>
+            <div class="hero-label">自己紹介</div>
+            <p class="hero-body">
+              神山まるごと高専1期生。<br>
+              完璧な計画よりも、仮説を立てて試作し、失敗しながら改善していくことを大切にしています。<br>
+              得意なのは、人を頼って巻き込みながら前に進めること。
+            </p>
 
-      <div class="hero-label">自己紹介</div>
-      <p class="hero-body">
-        神山まるごと高専1期生。<br>
-        完璧な計画よりも、仮説を立てて試作し、失敗しながら改善していくことを大切にしています。<br>
-        得意なのは、人を頼って巻き込みながら前に進めること。
-      </p>
+            <div class="hero-label">これからしたいこと</div>
+            <p class="hero-body hero-body--future">
+              介護現場の「経験差」を埋めるAR×AIプロダクトを、現場で使われる形まで磨き込みたいです。<br>
+              さらに「質を情報でサポートする」という思想を、介護以外の領域にも横展開し、起業につなげていきます。
+            </p>
 
-      <div class="hero-label">これからしたいこと</div>
-      <p class="hero-body hero-body--future">
-        介護現場の「経験差」を埋めるAR×AIプロダクトを、現場で使われる形まで磨き込みたいです。<br>
-        さらに「質を情報でサポートする」という思想を、介護以外の領域にも横展開し、起業につなげていきます。
-      </p>
+            <div class="hero-actions">
+              <a href="#projects" class="btn-primary">プロジェクトを見る</a>
+              <a href="#works" class="btn-ghost">作ったもの</a>
+              <a href="#contact" class="btn-ghost">連絡する</a>
+            </div>
+          </div>
 
-      <div class="hero-actions">
-        <a href="#projects" class="btn-primary">プロジェクトを見る</a>
-        <a href="#works" class="btn-ghost">作ったもの</a>
-        <a href="#contact" class="btn-ghost">連絡する</a>
-      </div>
-    </div>
-
-    <!-- 右側の顔 -->
-    <div class="hero-face">
-      <div class="hero-face-inner hero-face-right" id="heroFaceRight"></div>
-    </div>
-  </div>
-</section>
+          <!-- 右側の顔 -->
+          <div class="hero-face">
+            <div class="hero-face-inner hero-face-right" id="heroFaceRight"></div>
+          </div>
+        </div>
+      </section>
 
       <!-- projects -->
       <section id="projects" class="section">
@@ -764,8 +786,8 @@
             <a class="project-card project-card-link" href="Hanabipage.html">
               <div class="project-tag">Hanabi / International Robotics</div>
               <div class="project-thumb">
-  <img src="images/Hanabiの写真.png" alt="Hanabi 花火プロジェクト" loading="lazy" />
-</div>
+                <img src="images/Hanabiの写真.png" alt="Hanabi 花火プロジェクト" loading="lazy" />
+              </div>
               <h3 class="project-title">営業リーダーとして 2,700万円を調達</h3>
               <p class="project-meta">5名 → 10名の組織で営業チームをリード</p>
               <p class="project-body">
@@ -800,42 +822,41 @@
               <span class="project-pill">プロダクトリード / 現場リサーチ</span>
             </a>
           </div>
+
           <div style="margin-top: 2.8rem;">
-      <h3 class="section-title-main" style="font-size:1.2rem; margin-bottom:1.2rem;">
-        その他の<span>取り組み</span>
-      </h3>
+            <h3 class="section-title-main" style="font-size:1.2rem; margin-bottom:1.2rem;">
+              その他の<span>取り組み</span>
+            </h3>
 
-      <div class="subprojects-grid">
-        <div class="subproject-item">
-          <div class="subproject-tag">Hanabi Outreach</div>
-          <div class="subproject-title">地域企業・学校へのアウトリーチ活動</div>
-          <p class="subproject-body">
-            国際ロボコン挑戦の認知拡大のために、地域企業や学校に対して説明会やデモを実施。プロジェクトの意義を伝え、スポンサー候補や応援者を増やしました。
-          </p>
-        </div>
+            <div class="subprojects-grid">
+              <div class="subproject-item">
+                <div class="subproject-tag">Hanabi Outreach</div>
+                <div class="subproject-title">地域企業・学校へのアウトリーチ活動</div>
+                <p class="subproject-body">
+                  国際ロボコン挑戦の認知拡大のために、地域企業や学校に対して説明会やデモを実施。プロジェクトの意義を伝え、スポンサー候補や応援者を増やしました。
+                </p>
+              </div>
 
-        <div class="subproject-item">
-          <div class="subproject-tag">Local Festival</div>
-          <div class="subproject-title">地域の祭り企画・運営サポート</div>
-          <p class="subproject-body">
-            地域の祭り運営に関わり、企画のアイデア出しや当日の運営補助を担当。参加者目線と運営側の両方を経験し、場づくりの難しさと楽しさを学びました。
-          </p>
-        </div>
+              <div class="subproject-item">
+                <div class="subproject-tag">Local Festival</div>
+                <div class="subproject-title">地域の祭り企画・運営サポート</div>
+                <p class="subproject-body">
+                  地域の祭り運営に関わり、企画のアイデア出しや当日の運営補助を担当。参加者目線と運営側の両方を経験し、場づくりの難しさと楽しさを学びました。
+                </p>
+              </div>
 
-        <div class="subproject-item">
-          <div class="subproject-tag">Kosen Procon</div>
-          <div class="subproject-title">高専プロコンへの挑戦</div>
-          <p class="subproject-body">
-            高専プロコンに向けた開発に参加し、チームでの要件定義・実装・プレゼン準備を経験。技術力だけでなく、限られた期間で形にするスケジューリングも意識しました。
-          </p>
-        </div>
-      </div>
-    </div>
+              <div class="subproject-item">
+                <div class="subproject-tag">Kosen Procon</div>
+                <div class="subproject-title">高専プロコンへの挑戦</div>
+                <p class="subproject-body">
+                  高専プロコンに向けた開発に参加し、チームでの要件定義・実装・プレゼン準備を経験。技術力だけでなく、限られた期間で形にするスケジューリングも意識しました。
+                </p>
+              </div>
+            </div>
+          </div>
+
         </div>
       </section>
-
-
-
 
       <!-- works -->
       <section id="works" class="section">
@@ -905,7 +926,6 @@
             <div class="contact-row">
               <div class="contact-label">EMAIL</div>
               <div class="contact-value">
-                <!-- 自分のメールに差し替えてね -->
                 <a href="mailto:example@example.com">example@example.com</a>
               </div>
             </div>
@@ -920,7 +940,6 @@
             <div class="contact-row">
               <div class="contact-label">X (Twitter)</div>
               <div class="contact-value">
-                <!-- あればURL -->
                 <a href="#" target="_blank" rel="noreferrer">coming soon</a>
               </div>
             </div>
@@ -928,7 +947,6 @@
         </div>
       </section>
     </main>
-
   </div>
 </body>
 </html>
