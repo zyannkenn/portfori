@@ -477,6 +477,17 @@
       .projects-grid {
         grid-template-columns: minmax(0, 1fr);
       }
+      .hero-inner {
+        gap: 0;
+      }
+      .hero-face {
+        display: none;
+      }
+      .hero-copy {
+        flex: 1 1 auto;
+        margin: 0;
+        max-width: 100%;
+      }
     }
     .subprojects-grid {
   display: grid;
@@ -637,6 +648,164 @@
       line-height: 1.8;
       color: var(--text-main);
     }
+
+    /* ===== Contact Form ===== */
+    .contact-form {
+      border-radius: 1.0rem;
+      border: 1px solid #000000;
+      padding: 1.5rem 1.6rem;
+      background: #ffffff;
+      margin-top: 1.5rem;
+      margin-bottom: 2.0rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+
+    .form-group:last-child {
+      margin-bottom: 0;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.78rem;
+      color: #000000;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      margin-bottom: 0.4rem;
+      font-weight: 600;
+    }
+
+    .form-input,
+    .form-textarea {
+      width: 100%;
+      padding: 0.7rem 0.9rem;
+      border: 1px solid #000000;
+      border-radius: 0.5rem;
+      font-family: "Noto Sans JP", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 0.9rem;
+      color: #000000;
+      background: #ffffff;
+      transition: border-color 0.12s ease-out, box-shadow 0.12s ease-out;
+    }
+
+    .form-input:focus,
+    .form-textarea:focus {
+      outline: none;
+      border-color: #ff0000;
+      box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.1);
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .form-submit {
+      background: linear-gradient(135deg, #ff0000, #990000);
+      color: #ffffff;
+      border: none;
+      border-radius: 999px;
+      padding: 0.7rem 1.6rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.12s ease-out, box-shadow 0.12s ease-out;
+    }
+
+    .form-submit:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(255, 0, 0, 0.2);
+    }
+
+    .form-submit:active {
+      transform: translateY(0);
+    }
+
+    .form-status {
+      font-size: 0.85rem;
+      margin-top: 0.8rem;
+      padding: 0.6rem 0.9rem;
+      border-radius: 0.5rem;
+      display: none;
+    }
+
+    .form-status.success {
+      background: #e8f5e9;
+      color: #2e7d32;
+      display: block;
+    }
+
+    .form-status.error {
+      background: #ffebee;
+      color: #c62828;
+      display: block;
+    }
+
+    /* ===== Responsive Design ===== */
+    @media (max-width: 900px) {
+      .contact-form {
+        padding: 1.2rem 1.3rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .form-input,
+      .form-textarea {
+        font-size: 16px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .contact-form {
+        padding: 1.0rem 1.1rem;
+        margin-top: 1.2rem;
+        margin-bottom: 1.2rem;
+      }
+
+      .form-group {
+        margin-bottom: 1.0rem;
+      }
+
+      .form-label {
+        font-size: 0.73rem;
+        margin-bottom: 0.3rem;
+      }
+
+      .form-input,
+      .form-textarea {
+        padding: 0.6rem 0.8rem;
+        font-size: 16px;
+      }
+
+      .form-textarea {
+        min-height: 100px;
+      }
+
+      .form-submit {
+        width: 100%;
+        padding: 0.65rem 1.2rem;
+        font-size: 0.85rem;
+      }
+
+      .contact-box {
+        padding: 1.0rem 1.1rem;
+        font-size: 0.85rem;
+      }
+
+      .contact-row + .contact-row {
+        margin-top: 0.5rem;
+      }
+
+      .contact-label {
+        font-size: 0.72rem;
+        margin-bottom: 0.08rem;
+      }
+
+      .contact-value {
+        font-size: 0.8rem;
+      }
+    }
   </style>
 </head>
 <script>
@@ -669,6 +838,51 @@
     // 最初の1枚を表示してから、1秒ごとに更新
     updateHeroFaces();
     setInterval(updateHeroFaces, 1000);
+
+    // コンタクトフォーム処理
+    const contactForm = document.getElementById("contactForm");
+    const formStatus = document.getElementById("formStatus");
+
+    if (contactForm) {
+      contactForm.addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        const name = contactForm.querySelector('input[name="name"]').value;
+        const email = contactForm.querySelector('input[name="email"]').value;
+        const message = contactForm.querySelector('textarea[name="message"]').value;
+
+        // FormspreeのエンドポイントにPOST送信
+        try {
+          const response = await fetch("https://formspree.io/f/xyzgqejq", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              name: name,
+              email: email,
+              message: message,
+            }),
+          });
+
+          if (response.ok) {
+            formStatus.textContent = "メッセージを送信しました！ありがとうございます。";
+            formStatus.classList.remove("error");
+            formStatus.classList.add("success");
+            contactForm.reset();
+          } else {
+            formStatus.textContent = "送信に失敗しました。しばらく後に試してください。";
+            formStatus.classList.remove("success");
+            formStatus.classList.add("error");
+          }
+        } catch (error) {
+          formStatus.textContent = "エラーが発生しました。後でお試しください。";
+          formStatus.classList.remove("success");
+          formStatus.classList.add("error");
+          console.error("Error:", error);
+        }
+      });
+    }
   });
 </script>
 <body>
@@ -730,7 +944,7 @@
 
       <div class="hero-label">これからしたいこと</div>
       <p class="hero-body hero-body--future">
-        介護現場の「経験差」を埋めるAR×AIプロダクトを、現場で使われる形まで磨き込みたいです。<br>
+        介護のスポットワークを可能にするAR商品の開発。<br>
         さらに「質を情報でサポートする」という思想を、介護以外の領域にも横展開し、起業につなげていきます。
       </p>
 
@@ -765,7 +979,7 @@
               <p class="project-body">
                 国際ロボコン挑戦のための資金調達を担当。提案資料の作成から企業訪問、交渉までを一貫して行い、2年間で合計2,700万円のスポンサー資金を獲得しました。
               </p>
-              <span class="project-pill">営業リーダー / 企画提案 / チーム運営</span>
+              <span class="project-pill">営業リーダー / チーム運営</span>
             </a>
 
             <a class="project-card project-card-link" href="festibal.html">
@@ -776,7 +990,7 @@
               <h3 class="project-title">高専祭で打ち上げ花火を実現</h3>
               <p class="project-meta">実行リーダー / クラファン企画・安全管理</p>
               <p class="project-body">
-                「地域に誇れる高専祭」を目指し、打ち上げ花火企画を立案。クラウドファンディングの設計、煙火業者・消防団・県との調整までを担当し、初の花火打ち上げを実現しました。
+                「みんなで1つの思い出作り」を目指し、打ち上げ花火企画を立案。クラウドファンディングの設計、煙火業者・消防団・県との調整までを担当し、初の花火打ち上げを実現しました。
               </p>
               <span class="project-pill">プロジェクトマネジメント / 調整力</span>
             </a>
@@ -786,10 +1000,10 @@
               <div class="project-thumb">
                 <img src="images/介護.png" alt="介護現場向けAR×AIプロダクト" loading="lazy" />
               </div>
-              <h3 class="project-title">介護現場の「経験差」を埋めるAR商品</h3>
+              <h3 class="project-title">介護をスポットワーク可能にするAR商品</h3>
               <p class="project-meta">チーム立ち上げ / コンセプト / ヒアリング</p>
               <p class="project-body">
-                新人とベテランの経験差によるケア品質のギャップに着目し、ARグラスとAIで新人を支援するプロダクトを開発中。メンバー集めからコンセプト設計、施設へのヒアリングをリードしています。
+                これから必ず社会に求められる介護のスポットワークを可能にするAR商品を開発中。</br>メンバー集めからコンセプト設計、施設へのヒアリングをリードしています。
               </p>
               <span class="project-pill">プロダクトリード / 現場リサーチ</span>
             </a>
@@ -802,17 +1016,17 @@
       <div class="subprojects-grid">
         <div class="subproject-item">
           <div class="subproject-tag">Hanabi Outreach</div>
-          <div class="subproject-title">地域企業・学校へのアウトリーチ活動</div>
+          <div class="subproject-title">アウトリーチ活動</div>
           <p class="subproject-body">
-            国際ロボコン挑戦の認知拡大のために、地域企業や学校に対して説明会やデモを実施。プロジェクトの意義を伝え、スポンサー候補や応援者を増やしました。
+            プログラミングの教育格差をなくすため、学校・イベント会場・ショッピング施設にてstemのイベントを開催。未来のエンジニア育成に貢献しました。
           </p>
         </div>
 
         <div class="subproject-item">
           <div class="subproject-tag">Local Festival</div>
-          <div class="subproject-title">地域の祭り企画・運営サポート</div>
+          <div class="subproject-title">地域の祭り企画・運営</div>
           <p class="subproject-body">
-            地域の祭り運営に関わり、企画のアイデア出しや当日の運営補助を担当。参加者目線と運営側の両方を経験し、場づくりの難しさと楽しさを学びました。
+            地域の祭り運営に関わり、企画のアイデア出しや当日の運営を担当。</br>場づくりの難しさと楽しさを学びました。
           </p>
         </div>
 
@@ -820,7 +1034,7 @@
           <div class="subproject-tag">Kosen Procon</div>
           <div class="subproject-title">高専プロコンへの挑戦</div>
           <p class="subproject-body">
-            高専プロコンに向けた開発に参加し、チームでの要件定義・実装・プレゼン準備を経験。技術力だけでなく、限られた期間で形にするスケジューリングも意識しました。
+            高専プロコンに出場し、チームリーダーを担当。アイデア出し・資料作成を行い、本戦である全国大会進出を果たしました。
           </p>
         </div>
       </div>
@@ -869,56 +1083,43 @@
         </div>
       </section>
 
-      <!-- investment -->
-      <section id="investment" class="section">
-        <div class="section-inner">
-          <p class="section-title-eyebrow">INVESTMENT</p>
-          <h2 class="section-title-main">市場と<span>意思決定</span></h2>
-
-          <div class="investment-grid">
-            <div class="investment-card">
-              <div class="investment-tag">MARKET THINKING</div>
-              <div class="investment-title">株式投資を通じた仮説検証と意思決定</div>
-              <p class="investment-body">
-                株式投資を、仮説立て・意思決定・結果検証を繰り返す思考訓練として行っています。<br>
-                企業の事業内容やニュースから成長仮説を立て、市場の反応を観察。<br>
-                結果が外れた場合も、感情ではなく前提や見立てを振り返ることを重視しています。
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <!-- contact -->
       <section id="contact" class="section">
         <div class="section-inner">
           <p class="section-title-eyebrow">CONTACT</p>
           <h2 class="section-title-main">一緒に<span>次のチャレンジ</span>をしませんか？</h2>
 
+          <div class="contact-form">
+            <h3 style="font-size: 1.0rem; margin-bottom: 1.2rem; color: #000000;">メッセージを送る</h3>
+            <form id="contactForm">
+              <div class="form-group">
+                <label class="form-label">お名前</label>
+                <input type="text" name="name" class="form-input" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label">メールアドレス</label>
+                <input type="email" name="email" class="form-input" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label">メッセージ</label>
+                <textarea name="message" class="form-textarea" required></textarea>
+              </div>
+              <button type="submit" class="form-submit">送信</button>
+              <div class="form-status" id="formStatus"></div>
+            </form>
+          </div>
+
+          
           <div class="contact-box">
             <div class="contact-row">
               <div class="contact-label">EMAIL</div>
               <div class="contact-value">
-                <!-- 自分のメールに差し替えてね -->
-                <a href="mailto:example@example.com">example@example.com</a>
+                <a href="mailto:kmc2306@kamiyama.ac.jp">kmc2306@kamiyama.ac.jp</a>
               </div>
             </div>
-            <div class="contact-row">
-              <div class="contact-label">GITHUB</div>
-              <div class="contact-value">
-                <a href="https://github.com/zyannkenn" target="_blank" rel="noreferrer">
-                  github.com/zyannkenn
-                </a>
-              </div>
-            </div>
-            <div class="contact-row">
-              <div class="contact-label">X (Twitter)</div>
-              <div class="contact-value">
-                <!-- あればURL -->
-                <a href="#" target="_blank" rel="noreferrer">coming soon</a>
-              </div>
-            </div>
+
           </div>
+
         </div>
       </section>
     </main>
