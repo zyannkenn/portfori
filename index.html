@@ -947,8 +947,8 @@
     // 2) /data/projects.json と /data/works.json を同梱して配信
     // という方式が安全です。
 
-    // 既存HTMLを「静的フォールバック」として残しつつ、取得成功したら差し替える
-    const projectsGrid = document.querySelector("#projects .projects-grid");
+    // Render CMS projects into a dedicated container placed under the 3 static projects
+    const projectsGrid = document.querySelector("#projects-cms") || document.querySelector("#projects .projects-grid");
     const worksGrid = document.querySelector("#works .works-grid");
     // Preserve existing static HTML (fallback cards) so hydration won't erase them
     const projectsFallbackHTML = projectsGrid ? projectsGrid.innerHTML : "";
@@ -980,7 +980,7 @@
 
       return {
         tag: item.tag || item.category || "PROJECT",
-        href: href ? safeUrl(href) : "#",
+        href: href ? safeUrl(href) : "",
         img: img || "",
         imgAlt: item.imgAlt || item.alt || item.title || "project thumbnail",
         title: item.title || item.name || "",
@@ -1013,15 +1013,21 @@
           const thumb = p.img
             ? `<div class="project-thumb"><img src="${escapeHtml(p.img)}" alt="${escapeHtml(p.imgAlt)}" loading="lazy" /></div>`
             : "";
+          const isLink = p.href && p.href !== "#";
+          const open = isLink
+            ? `<a class="project-card project-card-link" href="${escapeHtml(p.href)}">`
+            : `<div class="project-card">`;
+          const close = isLink ? `</a>` : `</div>`;
+
           return `
-            <a class="project-card project-card-link" href="${escapeHtml(p.href)}">
+            ${open}
               <div class="project-tag">${escapeHtml(p.tag)}</div>
               ${thumb}
               <h3 class="project-title">${escapeHtml(p.title)}</h3>
               <p class="project-meta">${escapeHtml(p.meta)}</p>
               <p class="project-body">${escapeHtml(p.body)}</p>
               ${p.pill ? `<span class="project-pill">${escapeHtml(p.pill)}</span>` : ""}
-            </a>
+            ${close}
           `;
         })
         .join("");
@@ -1309,6 +1315,9 @@ const APPS_SCRIPT_URL =
               <span class="project-pill">プロダクトリード / 現場リサーチ</span>
             </a>
           </div>
+
+          <!-- CMS projects will be rendered here (always below the 3 static projects) -->
+          <div id="projects-cms" class="projects-grid" style="margin-top: 1.5rem;"></div>
           <div style="margin-top: 2.8rem;">
 
       <div class="projects-grid">
