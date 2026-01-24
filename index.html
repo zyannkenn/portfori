@@ -1058,8 +1058,10 @@
     }
 
     async function fetchLocalJson(path) {
-      const res = await fetch(path, { method: "GET", cache: "no-store" });
-      if (!res.ok) throw new Error(`local JSON fetch failed: ${path} (${res.status})`);
+      // Always resolve relative to the current document URL
+      const url = new URL(path, document.baseURI).toString();
+      const res = await fetch(url, { method: "GET", cache: "no-store" });
+      if (!res.ok) throw new Error(`local JSON fetch failed: ${url} (${res.status})`);
       return res.json();
     }
 
@@ -1067,20 +1069,23 @@
       try {
         // projects
         if (projectsGrid) {
-          const data = await fetchLocalJson("./data/projects.json");
+          const data = await fetchLocalJson("data/projects.json");
           const contents = Array.isArray(data?.contents) ? data.contents : (Array.isArray(data) ? data : []);
           if (contents.length) renderProjects(contents.map(normalizeProject));
         }
 
         // works
         if (worksGrid) {
-          const data = await fetchLocalJson("./data/works.json");
+          const data = await fetchLocalJson("data/works.json");
           const contents = Array.isArray(data?.contents) ? data.contents : (Array.isArray(data) ? data : []);
           if (contents.length) renderWorks(contents.map(normalizeWork));
         }
+        document.documentElement.setAttribute("data-cms", "ok");
       } catch (err) {
         // 失敗したら静的フォールバックを維持
         console.warn("CMS hydrate failed; fallback to static HTML.", err);
+        // Quick visual hint for debugging (remove later if you want)
+        document.documentElement.setAttribute("data-cms", "failed");
       }
     }
 
