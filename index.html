@@ -950,6 +950,9 @@
     // 既存HTMLを「静的フォールバック」として残しつつ、取得成功したら差し替える
     const projectsGrid = document.querySelector("#projects .projects-grid");
     const worksGrid = document.querySelector("#works .works-grid");
+    // Preserve existing static HTML (fallback cards) so hydration won't erase them
+    const projectsFallbackHTML = projectsGrid ? projectsGrid.innerHTML : "";
+    const worksFallbackHTML = worksGrid ? worksGrid.innerHTML : "";
 
     function escapeHtml(str) {
       return String(str ?? "")
@@ -1023,7 +1026,7 @@
         })
         .join("");
 
-      projectsGrid.innerHTML = html;
+      projectsGrid.innerHTML = projectsFallbackHTML + html;
     }
 
     function renderWorks(list) {
@@ -1054,7 +1057,7 @@
         })
         .join("");
 
-      worksGrid.innerHTML = html;
+      worksGrid.innerHTML = worksFallbackHTML + html;
     }
 
     async function fetchLocalJson(path) {
