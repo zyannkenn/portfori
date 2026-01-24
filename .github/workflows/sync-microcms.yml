@@ -1,0 +1,39 @@
+name: Sync microCMS to JSON
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "*/30 * * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch projects
+        run: |
+          mkdir -p data
+          curl -sS \
+            -H "X-MICROCMS-API-KEY: ${{ secrets.MICROCMS_PROJECTS_KEY }}" \
+            "https://${{ secrets.MICROCMS_PROJECTS_DOMAIN }}.microcms.io/api/v1/projects?limit=100" \
+            > data/projects.json
+
+      - name: Fetch works
+        run: |
+          mkdir -p data
+          curl -sS \
+            -H "X-MICROCMS-API-KEY: ${{ secrets.MICROCMS_WORKS_KEY }}" \
+            "https://${{ secrets.MICROCMS_WORKS_DOMAIN }}.microcms.io/api/v1/works?limit=100" \
+            > data/works.json
+
+      - name: Commit & push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/projects.json data/works.json
+          git diff --cached --quiet || git commit -m "Sync microCMS data"
+          git push
