@@ -23,6 +23,7 @@
       background: #ffffff;
       color: #000000;
       min-height: 100vh;
+      overflow-x: hidden; /* 円のはみ出しで横スクロール/余白が出ないようにする */
     }
     html { scroll-behavior: smooth; }
 
@@ -42,6 +43,7 @@
   padding: 4.5rem 0;
   text-align: left;
   background: #ffffff;
+  overflow: hidden;
 }
 
 .hero-inner {
@@ -50,8 +52,8 @@
   margin: 0;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 2rem;  /* 中央の余白を少し詰める */
+  justify-content: space-between;
+  gap: 0;  /* 左右を端にくっつける */
 }
 .nowrap {
   white-space: nowrap;
@@ -72,37 +74,89 @@
   margin: 0 0 1.1rem;
 }
 
-/* 左右の顔コンテナ */
-/* 左右の顔コンテナ */
-/* 左右の顔コンテナ：幅は画面の3割、高さは画面の7割くらいまで使う */
+/* 左右の顔コンテナ：ページ端にくっつけて、横幅いっぱいに広がる */
 .hero-face {
-  /* 顔をより端に寄せつつ、半面だけ見えるよう横幅を少し狭くする */
-  flex: 0 0 24vw;   /* 画面幅の約24%を顔の横幅に（半分だけ見えるイメージ） */
+  /* 左右に均等に拡張してページ端にくっつく */
+  flex: 1 0 0;      /* 残りのスペースを均等に分配 */
   height: 72vh;
+  overflow: hidden; /* 顔がはみ出さないようにカット */
 }
 
 /* 顔画像：コンテナいっぱいに表示してズーム＆半分表示 */
 .hero-face-inner {
   width: 100%;
   height: 100%;
+  position: relative; /* 回転テキストのabsolute基準 */
   border-radius: 0;
-  overflow: visible;
+  overflow: hidden;
   background-color: transparent;
-  /* 縦方向は全体が見えるように高さ100%に合わせて、横方向だけをトリミング */
-  background-size: auto 100%;        /* 画像の高さをコンテナにフィットさせる */
+  /* 背景画像を2倍にして、正確に半分だけを切り取る */
+  background-size: 200% 100%;        /* 横を2倍にして半分だけ見えるようにする */
   background-position: center center; /* 基本は中央寄せ */
   background-repeat: no-repeat;
   box-shadow: none;
 }
-/* 左カードには画像の「さらに外側（右側）を切り落として、内側だけ見せる」 */
+/* 左側には画像の右半分を表示 */
 .hero-face-left {
-  background-position: 300% center;  /* 右方向にオフセットして外側を多めにカット */
+  background-position: 100% center;  /* 背景の右側（右半分）を表示 */
 }
 
-/* 右カードには画像の「さらに外側（左側）を切り落として、内側だけ見せる」 */
+/* 右側には画像の左半分を表示 */
 .hero-face-right {
-  background-position: -230% center;  /* 左方向にオフセットして外側を多めにカット */
+  background-position: 0% center;  /* 背景の左側（左半分）を表示 */
+  position: relative;
 }
+
+    /* ===== 回転テキスト（やればできる） ===== */
+    @keyframes rotateCW {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    @keyframes rotateCCW {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(-360deg); }
+    }
+
+    .rotating-text-wrapper {
+      position: absolute;
+      top: 45%;
+      right: -280px;
+      transform: translateY(-50%);
+      width: 560px;
+      height: 560px;
+      pointer-events: none;
+    }
+
+    .rotating-text-wrapper--left {
+      right: auto;
+      left: -280px;
+    }
+
+    /* 右：左回り（反時計回り） */
+    .rotating-text-circle {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      animation: rotateCCW 10s linear infinite;
+    }
+
+    /* 左：右回り（時計回り） */
+    .rotating-text-circle--left {
+      animation: rotateCW 10s linear infinite;
+    }
+
+    .rotating-text-svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .rotating-text-text {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      fill: #ff0000;
+    }
 
     /* ===== hero ===== */
     .hero-tag-dot {
@@ -806,6 +860,53 @@
         font-size: 0.8rem;
       }
     }
+    /* ===== 顔まわりを回るテキスト ===== */
+.orbit-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.orbit-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 180px;          /* 回転の大きさ（顔より一回り大きく） */
+  height: 180px;
+  margin: -90px 0 0 -90px;
+  border-radius: 50%;
+  animation: orbit-spin 14s linear infinite;
+  pointer-events: none;
+}
+
+.orbit-text span {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform-origin: 0 90px;
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  font-weight: 700;
+  color: #ff0000;
+}
+
+@keyframes orbit-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* スマホ用：顔も文字も小さく */
+@media (max-width: 640px) {
+  .orbit-text {
+    width: 130px;
+    height: 130px;
+    margin: -65px 0 0 -65px;
+  }
+  .orbit-text span {
+    transform-origin: 0 65px;
+    font-size: 0.6rem;
+  }
+}
   </style>
 </head>
 <script>
@@ -824,6 +925,7 @@
     const leftFace  = document.getElementById("heroFaceLeft");
     const rightFace = document.getElementById("heroFaceRight");
 
+
     function updateHeroFaces() {
       const src = heroImages[heroIndex];
       // 左右どちらも同じ画像をセット、表示位置はCSS側で左右入れ替え
@@ -839,6 +941,152 @@
     updateHeroFaces();
     setInterval(updateHeroFaces, 1000);
 
+    // ===== CMS data (GitHub Pages-safe) =====
+    // microCMSのAPIキーをブラウザに置くと漏洩するため、GitHub Pagesでは
+    // 1) GitHub Actions で microCMS から取得して JSON を生成し
+    // 2) /data/projects.json と /data/works.json を同梱して配信
+    // という方式が安全です。
+
+    // 既存HTMLを「静的フォールバック」として残しつつ、取得成功したら差し替える
+    const projectsGrid = document.querySelector("#projects .projects-grid");
+    const worksGrid = document.querySelector("#works .works-grid");
+
+    function escapeHtml(str) {
+      return String(str ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#39;");
+    }
+
+    function safeUrl(url) {
+      if (!url) return "#";
+      try {
+        const u = new URL(url, location.href);
+        return u.href;
+      } catch {
+        return "#";
+      }
+    }
+
+    function normalizeProject(item) {
+      const href = item.href || item.url || item.link || item.page || item.path;
+      const imgObj = item.thumbnail || item.thumb || item.image || item.cover;
+      const img = (imgObj && (imgObj.url || imgObj.src)) || item.imageUrl || item.thumbnailUrl;
+
+      return {
+        tag: item.tag || item.category || "PROJECT",
+        href: href ? safeUrl(href) : "#",
+        img: img || "",
+        imgAlt: item.imgAlt || item.alt || item.title || "project thumbnail",
+        title: item.title || item.name || "",
+        meta: item.meta || item.subtitle || "",
+        body: item.body || item.description || "",
+        pill: item.pill || item.badge || item.role || "",
+      };
+    }
+
+    function normalizeWork(item) {
+      const links = Array.isArray(item.links) ? item.links : (Array.isArray(item.link) ? item.link : []);
+      return {
+        tag: item.tag || item.category || "WORK",
+        title: item.title || item.name || "",
+        body: item.body || item.description || "",
+        tech: item.tech || item.stack || item.meta || "",
+        links: links
+          .map((l) => ({
+            label: l.label || l.text || l.name || "Link",
+            url: safeUrl(l.url || l.href || "#"),
+          }))
+          .filter((l) => l.url && l.url !== "#"),
+      };
+    }
+
+    function renderProjects(list) {
+      if (!projectsGrid) return;
+      const html = list
+        .map((p) => {
+          const thumb = p.img
+            ? `<div class="project-thumb"><img src="${escapeHtml(p.img)}" alt="${escapeHtml(p.imgAlt)}" loading="lazy" /></div>`
+            : "";
+          return `
+            <a class="project-card project-card-link" href="${escapeHtml(p.href)}">
+              <div class="project-tag">${escapeHtml(p.tag)}</div>
+              ${thumb}
+              <h3 class="project-title">${escapeHtml(p.title)}</h3>
+              <p class="project-meta">${escapeHtml(p.meta)}</p>
+              <p class="project-body">${escapeHtml(p.body)}</p>
+              ${p.pill ? `<span class="project-pill">${escapeHtml(p.pill)}</span>` : ""}
+            </a>
+          `;
+        })
+        .join("");
+
+      projectsGrid.innerHTML = html;
+    }
+
+    function renderWorks(list) {
+      if (!worksGrid) return;
+      const html = list
+        .map((w) => {
+          const links = w.links?.length
+            ? `
+              <div class="work-links">
+                ${w.links
+                  .map(
+                    (l) => `<a class="work-link" href="${escapeHtml(l.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(l.label)}</a>`
+                  )
+                  .join("")}
+              </div>
+            `
+            : "";
+
+          return `
+            <div class="work-card">
+              <div class="work-tag">${escapeHtml(w.tag)}</div>
+              <div class="work-title">${escapeHtml(w.title)}</div>
+              <p class="work-body">${escapeHtml(w.body)}</p>
+              ${w.tech ? `<div class="work-meta">Tech: ${escapeHtml(w.tech)}</div>` : ""}
+              ${links}
+            </div>
+          `;
+        })
+        .join("");
+
+      worksGrid.innerHTML = html;
+    }
+
+    async function fetchLocalJson(path) {
+      const res = await fetch(path, { method: "GET", cache: "no-store" });
+      if (!res.ok) throw new Error(`local JSON fetch failed: ${path} (${res.status})`);
+      return res.json();
+    }
+
+    async function tryHydrateFromLocalJson() {
+      try {
+        // projects
+        if (projectsGrid) {
+          const data = await fetchLocalJson("./data/projects.json");
+          const contents = Array.isArray(data?.contents) ? data.contents : (Array.isArray(data) ? data : []);
+          if (contents.length) renderProjects(contents.map(normalizeProject));
+        }
+
+        // works
+        if (worksGrid) {
+          const data = await fetchLocalJson("./data/works.json");
+          const contents = Array.isArray(data?.contents) ? data.contents : (Array.isArray(data) ? data : []);
+          if (contents.length) renderWorks(contents.map(normalizeWork));
+        }
+      } catch (err) {
+        // 失敗したら静的フォールバックを維持
+        console.warn("CMS hydrate failed; fallback to static HTML.", err);
+      }
+    }
+
+    // JSONがあれば差し替え（成功したら動的、失敗したら静的のまま）
+    tryHydrateFromLocalJson();
+
     // コンタクトフォーム処理
     const contactForm = document.getElementById("contactForm");
     const formStatus = document.getElementById("formStatus");
@@ -851,21 +1099,34 @@
         const email = contactForm.querySelector('input[name="email"]').value;
         const message = contactForm.querySelector('textarea[name="message"]').value;
 
-        // FormspreeのエンドポイントにPOST送信
+        // Apps ScriptのエンドポイントにPOST送信
+        // Apps ScriptのエンドポイントにPOST送信
+const APPS_SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycbxrAB8Mza4lmj9HwXxMe6NRdBb7_kLknlu4tPcxF7Td-apEoZHLyargb2Fy5iFHVVOGBA/exec";
+        // NOTE: GitHub Pagesなど別ドメインから送る場合、Apps ScriptはCORSヘッダーを返さないため
+        // `mode: "no-cors"` にするのが安全です（その場合 response は opaque になります）
+        if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes("YOUR_APPS_SCRIPT_WEBAPP_URL_HERE")) {
+          throw new Error("APPS_SCRIPT_URL が未設定です。Apps Script の /exec URL を設定してください。");
+        }
         try {
-          const response = await fetch("https://formspree.io/f/xyzgqejq", {
+          const response = await fetch(APPS_SCRIPT_URL, {
             method: "POST",
+            mode: "no-cors",
             headers: {
-              "Content-Type": "application/json",
+              "Content-Type": "text/plain;charset=utf-8",
             },
             body: JSON.stringify({
               name: name,
               email: email,
               message: message,
+              page: location.href,
+              userAgent: navigator.userAgent,
+              timestamp: new Date().toISOString(),
             }),
           });
 
-          if (response.ok) {
+          const isSuccess = response.ok || response.type === "opaque";
+          if (isSuccess) {
             formStatus.textContent = "メッセージを送信しました！ありがとうございます。";
             formStatus.classList.remove("error");
             formStatus.classList.add("success");
@@ -923,7 +1184,23 @@
   <div class="hero-inner">
     <!-- 左側の顔 -->
     <div class="hero-face">
-      <div class="hero-face-inner hero-face-left" id="heroFaceLeft"></div>
+      <div class="hero-face-inner hero-face-left" id="heroFaceLeft">
+        <!-- 回転テキスト「やればできる」 -->
+        <div class="rotating-text-wrapper rotating-text-wrapper--left">
+          <div class="rotating-text-circle rotating-text-circle--left">
+            <svg class="rotating-text-svg" viewBox="0 0 560 560" aria-hidden="true">
+              <defs>
+                <path id="circlePathLeft" d="M280,280 m-240,0 a240,240 0 1,1 480,0 a240,240 0 1,1 -480,0" />
+              </defs>
+              <text class="rotating-text-text" textLength="1508" lengthAdjust="spacing">
+                <textPath href="#circlePathLeft">
+                  やればできる　・　やればできる　・　やればできる　・　やればできる　・　やればできる　・　やればできる　・　やればできる　・　やればできる　・　やればできる　
+                </textPath>
+              </text>
+            </svg>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- 真ん中のテキスト（今の hero-copy をそのまま） -->
@@ -957,7 +1234,23 @@
 
     <!-- 右側の顔 -->
     <div class="hero-face">
-      <div class="hero-face-inner hero-face-right" id="heroFaceRight"></div>
+      <div class="hero-face-inner hero-face-right" id="heroFaceRight">
+        <!-- 回転テキスト「やればできる」 -->
+        <div class="rotating-text-wrapper">
+          <div class="rotating-text-circle">
+            <svg class="rotating-text-svg" viewBox="0 0 560 560" aria-hidden="true">
+              <defs>
+                <path id="circlePathRight" d="M280,280 m-240,0 a240,240 0 1,1 480,0 a240,240 0 1,1 -480,0" />
+              </defs>
+              <text class="rotating-text-text" textLength="1508" lengthAdjust="spacing">
+                <textPath href="#circlePathRight">
+                  やればできる　・　やればできる　・　やればできる　・　やればできる　・　やればできる　・　やればできる　・　やればできる　・　やればできる　・　やればできる　
+                </textPath>
+              </text>
+            </svg>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -966,7 +1259,7 @@
       <section id="projects" class="section">
         <div class="section-inner">
           <p class="section-title-eyebrow">PROJECTS</p>
-          <h2 class="section-title-main"><span>行動</span>から生まれた3つのプロジェクト</h2>
+          <h2 class="section-title-main"><span>行動</span>から生まれたプロジェクト</h2>
 
           <div class="projects-grid">
             <a class="project-card project-card-link" href="Hanabipage.html">
@@ -1087,7 +1380,7 @@
       <section id="contact" class="section">
         <div class="section-inner">
           <p class="section-title-eyebrow">CONTACT</p>
-          <h2 class="section-title-main">一緒に<span>次のチャレンジ</span>をしませんか？</h2>
+          <h2 class="section-title-main">僕に連絡してみませんか？</h2>
 
           <div class="contact-form">
             <h3 style="font-size: 1.0rem; margin-bottom: 1.2rem; color: #000000;">メッセージを送る</h3>
