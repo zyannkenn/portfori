@@ -947,11 +947,23 @@
     // 2) /data/projects.json と /data/works.json を同梱して配信
     // という方式が安全です。
 
-    // Render CMS projects into a dedicated container placed under the 3 static projects
-    const projectsGrid = document.querySelector("#projects-cms") || document.querySelector("#projects .projects-grid");
+    // Always render CMS projects into #projects-cms (below the 6 static project cards).
+    // Never fall back to the first .projects-grid, otherwise CMS cards can appear above.
+    let projectsGrid = document.querySelector("#projects-cms");
+    if (!projectsGrid) {
+      // Safety net: if the container is missing for any reason, create it at the end of the Projects section.
+      const projectsSectionInner = document.querySelector("#projects .section-inner");
+      if (projectsSectionInner) {
+        projectsGrid = document.createElement("div");
+        projectsGrid.id = "projects-cms";
+        projectsGrid.className = "projects-grid";
+        projectsGrid.style.marginTop = "1.5rem";
+        projectsSectionInner.appendChild(projectsGrid);
+      }
+    }
     const worksGrid = document.querySelector("#works .works-grid");
-    // Preserve existing static HTML (fallback cards) so hydration won't erase them
-    const projectsFallbackHTML = projectsGrid ? projectsGrid.innerHTML : "";
+    // CMS container should start empty; do not prepend any fallback HTML.
+    const projectsFallbackHTML = "";
     const worksFallbackHTML = worksGrid ? worksGrid.innerHTML : "";
 
     function escapeHtml(str) {
@@ -1032,7 +1044,7 @@
         })
         .join("");
 
-      projectsGrid.innerHTML = projectsFallbackHTML + html;
+      projectsGrid.innerHTML = html;
     }
 
     function renderWorks(list) {
