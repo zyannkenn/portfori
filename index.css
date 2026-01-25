@@ -671,6 +671,12 @@
     line-height: 1.25;
   }
 
+  /* My Purpose：『行動で証明する。』が途中で改行されないようにする */
+  .simple-intro-title span {
+    display: inline-block;
+    white-space: nowrap;
+  }
+
   /* スマホでは nowrap を解除して横はみ出し（右側の余白/横スクロール）を防ぐ */
   .simple-intro .nowrap {
     white-space: nowrap;
