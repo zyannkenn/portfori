@@ -687,16 +687,20 @@
 
   .simple-intro-inner {
     gap: 1.0rem;
+    width: 100%;
+    max-width: 100%;
   }
 
   .simple-intro-left {
     padding-top: 0;
     gap: 0.6rem;
+    min-width: 0; /* nowrap見出しでの横はみ出し防止 */
   }
 
   .simple-intro-title {
-    font-size: 1.55rem;
+    font-size: clamp(1.18rem, 5.1vw, 1.55rem);
     line-height: 1.25;
+    max-width: 100%;
   }
 
 
