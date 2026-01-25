@@ -654,21 +654,39 @@
 /* スマホ */
 @media (max-width: 640px) {
   .simple-intro {
-    padding: 2.4rem 1.2rem 2.0rem;
+    padding: 1.6rem 1.1rem 1.4rem;
   }
+
+  .simple-intro-inner {
+    gap: 1.0rem;
+  }
+
+  .simple-intro-left {
+    padding-top: 0;
+    gap: 0.6rem;
+  }
+
   .simple-intro-title {
-    font-size: 1.8rem;
+    font-size: 1.55rem;
+    line-height: 1.25;
+  }
+
+  /* 本文も少し小さくして全体の高さを圧縮 */
+  .simple-intro-body,
+  .simple-intro-body2 {
+    font-size: 0.95rem;
+    line-height: 1.75;
   }
 
   /* 上の顔写真が大きくなりすぎないように制限 */
   .simple-intro-photo {
-    max-width: 340px;
+    max-width: 280px;
     margin: 0 auto;
   }
   .simple-intro-photo img {
     width: 100%;
     height: auto;
-    max-height: 360px;
+    max-height: 260px;
     aspect-ratio: 4 / 5;
     object-fit: cover;
     object-position: center;
