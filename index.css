@@ -616,6 +616,11 @@
   display: inline-block;
   white-space: nowrap;
 }
+/* My Purpose：2行目の文章全体を改行させない */
+.simple-intro-title .purpose-line {
+  display: inline-block;
+  white-space: nowrap;
+}
 
 .simple-intro-body {
   font-size: 1.05rem;
