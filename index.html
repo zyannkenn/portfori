@@ -681,6 +681,11 @@
     line-height: 1.25;
   }
 
+  /* スマホでは nowrap を解除して横はみ出し（右側の余白/横スクロール）を防ぐ */
+  .simple-intro .nowrap {
+    white-space: normal;
+  }
+
   /* 本文も少し小さくして全体の高さを圧縮 */
   .simple-intro-body,
   .simple-intro-body2 {
