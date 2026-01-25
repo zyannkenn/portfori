@@ -572,11 +572,10 @@
 }
 
 .subproject-tag {
-  font-size: 0.72rem;
+  font-size: 0.95rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: #ff0000;
-  font-size: 0.95rem;
   font-weight: 600;
   margin-bottom: 0.3rem;
 }
@@ -903,53 +902,6 @@
         font-size: 0.8rem;
       }
     }
-    /* ===== 顔まわりを回るテキスト ===== */
-.orbit-wrapper {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-.orbit-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 180px;          /* 回転の大きさ（顔より一回り大きく） */
-  height: 180px;
-  margin: -90px 0 0 -90px;
-  border-radius: 50%;
-  animation: orbit-spin 14s linear infinite;
-  pointer-events: none;
-}
-
-.orbit-text span {
-  position: absolute;
-  left: 50%;
-  top: 0;
-  transform-origin: 0 90px;
-  font-size: 0.7rem;
-  letter-spacing: 0.25em;
-  font-weight: 700;
-  color: #ff0000;
-}
-
-@keyframes orbit-spin {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
-}
-
-/* スマホ用：顔も文字も小さく */
-@media (max-width: 640px) {
-  .orbit-text {
-    width: 130px;
-    height: 130px;
-    margin: -65px 0 0 -65px;
-  }
-  .orbit-text span {
-    transform-origin: 0 65px;
-    font-size: 0.6rem;
-  }
-}
   </style>
 </head>
 <script>
@@ -1168,7 +1120,6 @@
         const email = contactForm.querySelector('input[name="email"]').value;
         const message = contactForm.querySelector('textarea[name="message"]').value;
 
-        // Apps ScriptのエンドポイントにPOST送信
         // Apps ScriptのエンドポイントにPOST送信
 const APPS_SCRIPT_URL =
   "https://script.google.com/macros/s/AKfycbxrAB8Mza4lmj9HwXxMe6NRdBb7_kLknlu4tPcxF7Td-apEoZHLyargb2Fy5iFHVVOGBA/exec";
