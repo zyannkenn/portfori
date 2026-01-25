@@ -659,6 +659,20 @@
   .simple-intro-title {
     font-size: 1.8rem;
   }
+
+  /* 上の顔写真が大きくなりすぎないように制限 */
+  .simple-intro-photo {
+    max-width: 340px;
+    margin: 0 auto;
+  }
+  .simple-intro-photo img {
+    width: 100%;
+    height: auto;
+    max-height: 360px;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    object-position: center;
+  }
 }
 
     @media (max-width: 640px) {
