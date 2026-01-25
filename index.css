@@ -607,6 +607,14 @@
 
 .simple-intro-title span {
   color: #ff0000;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+/* My Purpose：『行動で証明する。』は常に途中改行しない */
+.simple-intro-title .purpose-nowrap {
+  display: inline-block;
+  white-space: nowrap;
 }
 
 .simple-intro-body {
@@ -671,11 +679,6 @@
     line-height: 1.25;
   }
 
-  /* My Purpose：『行動で証明する。』が途中で改行されないようにする */
-  .simple-intro-title span {
-    display: inline-block;
-    white-space: nowrap;
-  }
 
   /* スマホでは nowrap を解除して横はみ出し（右側の余白/横スクロール）を防ぐ */
   .simple-intro .nowrap {
