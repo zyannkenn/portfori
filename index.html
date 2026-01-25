@@ -527,20 +527,31 @@
     }
     @media (max-width: 640px) {
       .nav-links { display: none; }
-      .nav-inner, .hero, .section { padding-inline: 1.1rem; }
+
+      /* padding-inline だと環境によって効き方がズレることがあるので明示 */
+      .nav-inner, .hero, .section {
+        padding-left: 1.1rem;
+        padding-right: 1.1rem;
+      }
+
       .projects-grid {
         grid-template-columns: minmax(0, 1fr);
       }
+
+      /* ヒーローをスマホでは中央寄せ（全体が左に寄らないように） */
       .hero-inner {
         gap: 0;
+        justify-content: center;
       }
+
       .hero-face {
         display: none;
       }
+
       .hero-copy {
         flex: 1 1 auto;
-        margin: 0;
-        max-width: 100%;
+        margin: 0 auto;
+        max-width: 560px;
       }
     }
     .subprojects-grid {
