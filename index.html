@@ -124,8 +124,20 @@
           <p class="section-title-eyebrow">PROJECTS</p>
           <h2 class="section-title-main"><span>行動</span>から生まれたプロジェクト</h2>
 
+          <!-- PROJECTS filter bar -->
+          <div class="filter-bar" data-target="projects">
+            <button class="filter-btn is-active" data-filter="all">すべて</button>
+            <button class="filter-btn" data-filter="マネジメント">マネジメント</button>
+            <button class="filter-btn" data-filter="仲間集め">仲間集め</button>
+            <button class="filter-btn" data-filter="プロダクト開発">プロダクト開発</button>
+            <button class="filter-btn" data-filter="現場リサーチ">現場リサーチ</button>
+            <button class="filter-btn" data-filter="資金集め">資金集め</button>
+            <button class="filter-btn" data-filter="現場運営">現場運営</button>
+            <button class="filter-btn" data-filter="リーダー">リーダー</button>
+          </div>
+
           <div class="projects-grid">
-            <a class="project-card project-card-link" href="Hanabipage.html">
+            <a class="project-card project-card-link" href="Hanabipage.html" data-tags="資金集め,マネジメント,リーダー">
               <div class="project-tag">Hanabi / International Robotics</div>
               <div class="project-thumb">
   <img src="images/Hanabiの写真.png" alt="Hanabi 花火プロジェクト" loading="lazy" />
@@ -138,7 +150,7 @@
               <span class="project-pill">営業リーダー / チーム運営</span>
             </a>
 
-            <a class="project-card project-card-link" href="festibal.html">
+            <a class="project-card project-card-link" href="festibal.html" data-tags="現場運営,マネジメント,リーダー、資金集め">
               <div class="project-tag">KOSEN FESTIVAL</div>
               <div class="project-thumb">
                 <img src="images/花火.png" alt="打ち上げ花火" loading="lazy" />
@@ -151,7 +163,7 @@
               <span class="project-pill">プロジェクトマネジメント / 調整力</span>
             </a>
 
-            <a class="project-card project-card-link" href="Dcon.html">
+            <a class="project-card project-card-link" href="Dcon.html" data-tags="プロダクト開発,現場リサーチ,仲間集め、リーダー">
               <div class="project-tag">DCON / CARE × AR × AI</div>
               <div class="project-thumb">
                 <img src="images/介護.png" alt="介護現場向けAR×AIプロダクト" loading="lazy" />
@@ -168,7 +180,7 @@
           <div style="margin-top: 2.8rem;">
 
       <div class="projects-grid">
-        <div class="project-card">
+        <div class="project-card" data-tags="現場運営,マネジメント">
           <div class="project-tag">HANABI OUTREACH</div>
           <h3 class="project-title">アウトリーチ活動</h3>
           <p class="project-meta">教育格差をなくすSTEMイベント運営</p>
@@ -178,7 +190,7 @@
           <span class="project-pill">企画 / 運営</span>
         </div>
 
-        <div class="project-card">
+        <div class="project-card" data-tags="現場運営">
           <div class="project-tag">LOCAL FESTIVAL</div>
           <h3 class="project-title">地域の祭り企画・運営</h3>
           <p class="project-meta">アイデア出し〜当日運営</p>
@@ -188,7 +200,7 @@
           <span class="project-pill">地域連携 / 現場運営</span>
         </div>
 
-        <div class="project-card">
+        <div class="project-card" data-tags="製品開発,リーダー">
           <div class="project-tag">KOSEN PROCON</div>
           <h3 class="project-title">高専プロコンへの挑戦</h3>
           <p class="project-meta">チームリーダー / アイデア・資料作成</p>
@@ -213,8 +225,14 @@
         <div class="section-inner">
           <p class="section-title-eyebrow">WORKS</p>
           <h2 class="section-title-main"><span>技術</span>的な取り組み</h2>
+          <!-- WORKS filter bar -->
+          <div class="filter-bar" data-target="works">
+            <button class="filter-btn is-active" data-filter="all">すべて</button>
+            <button class="filter-btn" data-filter="AI">AI</button>
+            <button class="filter-btn" data-filter="LLM">LLM</button>
+          </div>
           <div class="works-grid">
-            <div class="work-card">
+            <div class="work-card" data-tags="AI">
               <div class="work-tag">Prototype / AI</div>
               <div class="work-title">うんちAI（排泄介助サポート）</div>
               <p class="work-body">
@@ -228,7 +246,7 @@
               </div>
             </div>
 
-            <div class="work-card">
+            <div class="work-card" data-tags="AI,LLM">
               <div class="work-tag">LLM / Fine-tuning</div>
               <div class="work-title">阿波弁対応カスタムLLM</div>
               <p class="work-body">
