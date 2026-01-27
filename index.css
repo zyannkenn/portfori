@@ -373,6 +373,76 @@
       background: #ffffff;
     }
 
+    /* ===== Filter UI (keyword buttons) ===== */
+.filter-bar{
+  display:flex;
+  flex-wrap:wrap;
+  gap:0.6rem;
+  align-items:center;
+  margin:0.6rem 0 1.6rem;
+}
+
+.filter-btn{
+  appearance:none;
+  -webkit-appearance:none;
+  border:1px solid #000000;
+  background:#ffffff;
+  color:#000000;
+
+  padding:0.42rem 0.85rem;
+  border-radius:999px;
+
+  font-size:0.78rem;
+  font-weight:700;
+  letter-spacing:0.06em;
+
+  cursor:pointer;
+  user-select:none;
+
+  transition:
+    transform 0.12s ease-out,
+    border-color 0.12s ease-out,
+    background 0.12s ease-out,
+    color 0.12s ease-out,
+    box-shadow 0.12s ease-out;
+}
+
+.filter-btn:hover{
+  border-color:#ff0000;
+  color:#ff0000;
+  transform:translateY(-1px);
+  box-shadow:0 6px 14px rgba(0,0,0,0.08);
+}
+
+.filter-btn:active{
+  transform:translateY(0);
+  box-shadow:none;
+}
+
+.filter-btn.is-active{
+  background:#ff0000;
+  border-color:#ff0000;
+  color:#ffffff;
+  box-shadow:none;
+}
+
+.filter-btn.is-active:hover{
+  color:#ffffff;
+  transform:translateY(-1px);
+}
+
+/* Mobile */
+@media (max-width: 640px){
+  .filter-bar{
+    gap:0.5rem;
+    margin:0.5rem 0 1.2rem;
+  }
+  .filter-btn{
+    padding:0.38rem 0.75rem;
+    font-size:0.76rem;
+  }
+}
+
     /* ===== Works (作ったもの) ===== */
     .works-grid {
       display: grid;
