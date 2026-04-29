@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>高専祭 花火｜打ち上げ花火を実現</title>
+  <meta name="description" content="高専祭で打ち上げ花火を実現。クラファン設計、関係者調整、安全管理までをリード。" />
+
+  <style>
+    :root {
+      --max-width: 1100px;
+      --text-main: #000000;
+      --text-muted: #000000;
+      --accent: #ff0000;
+      --border: #000000;
+      --card: #ffffff;
+      --shadow: none;
+      --radius: 18px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+      color: #000000;
+      background: #ffffff;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    .container { max-width: var(--max-width); margin: 0 auto; padding: 0 1.5rem; }
+
+    /* header */
+    .top {
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+    .top-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.9rem 0;
+    }
+    .back {
+      border: 1px solid #000000;
+      padding: 0.55rem 0.95rem; border-radius: 999px;
+      font-weight: 700; font-size: 0.9rem;
+      background: #fff;
+      color: #000000;
+    }
+    .back:hover { border-color: #ff0000; }
+
+    /* hero */
+    .hero { padding: 2.6rem 0 1.8rem; }
+    .tag {
+      display: inline-block; margin-bottom: 0.7rem;
+      padding: 0.35rem 0.65rem; border-radius: 0.5rem;
+      border: 1px solid #000000;
+      font-size: 0.78rem; font-weight: 800; letter-spacing: 0.08em;
+      background: #fff;
+      color: #000000;
+    }
+    h1 { margin: 0 0 0.8rem; font-size: 2rem; line-height: 1.25; font-weight: 900; color: #000000; }
+    .sub { color: #000000; line-height: 1.9; max-width: 46rem; }
+
+    /* section */
+    .section { padding: 1.2rem 0 2.4rem; }
+    .card {
+      background: var(--card); border: 1px solid #000000;
+      border-radius: var(--radius); box-shadow: none;
+      padding: 1.5rem; margin-bottom: 1.2rem;
+      color: #000000;
+    }
+    .label {
+      display: inline-block; margin-bottom: 0.6rem;
+      padding: 0.3rem 0.6rem; border-radius: 0.5rem;
+      border: 1px solid #000000;
+      font-size: 0.75rem; font-weight: 800; letter-spacing: 0.08em;
+      background: #fff;
+      color: #000000;
+    }
+    h2 { margin: 0 0 0.6rem; font-size: 1.15rem; font-weight: 900; color: #000000; }
+    p, li { line-height: 1.9; font-size: 0.95rem; color: #000000; }
+    ul { margin: 0.4rem 0 0; padding-left: 1.2rem; color: #000000; }
+
+    .kpi {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 0.9rem; margin-top: 0.9rem;
+    }
+    .kpi-item { border: 1px solid #000000; border-radius: 14px; padding: 0.85rem; background: #ffffff; }
+    .kpi-num { font-weight: 900; font-size: 1.3rem; color: #000000; }
+    .kpi-cap { color: #000000; font-size: 0.85rem; }
+
+    @media (max-width: 900px) {
+      h1 { font-size: 1.7rem; }
+      .kpi { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="top">
+    <div class="container">
+      <div class="top-inner">
+        <a class="back" href="index.html#projects">← プロジェクト一覧へ</a>
+        <div>Festival Fireworks / Portfolio</div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="tag">KOSEN FESTIVAL</div>
+        <h1>高専祭で<br>打ち上げ花火を実現</h1>
+        <p class="sub">
+          「みんなの1つの思い出作り」を目指し、打ち上げ花火企画を立案。<br>
+          クラウドファンディングの設計、煙火業者・消防・行政との調整、当日の安全管理までをリードしました。
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="card">
+          <div class="label">プロジェクト概要</div>
+          <h2>何を目指したか</h2>
+          <p>
+            学校のイベントを「地域の方の記憶にも残る、みんなで1つの思い出作り」にするために打ち上げ花火を実現し、来場者の記憶に残るクライマックスを作ることを目的にしました。
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="label">成果</div>
+          <h2>数値で見るアウトカム</h2>
+          <div class="kpi">
+            <div class="kpi-item"><div class="kpi-num">58万円</div><div class="kpi-cap">[1年目]クラファン</div></div>
+            <div class="kpi-item"><div class="kpi-num">133万円</div><div class="kpi-cap">[2年目]クラファン+町内企業</div></div>
+            <div class="kpi-item"><div class="kpi-num">初開催から2年連続開催</div><div class="kpi-cap">高専祭で花火</div></div>
+          </div>
+          <p style="margin-top:0.9rem; color: var(--text-muted);">
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="label">自分の役割</div>
+          <h2>担当したこと</h2>
+          <ul>
+            <li>企画立案（目的/予算/スケジュール）</li>
+            <li>クラウドファンディング設計（返礼品/内容構成/発信計画）</li>
+            <li>関係者調整（煙火業者・消防・行政・学校・運営メンバー）</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="label">学び</div>
+          <h2>この経験から得たこと</h2>
+          <ul>
+            <li>役場など公的機関との調整は、段取りと明確なコミュニケーションが必要</li>
+            <li>1人の想いでもやりたいと声をあげて、行動していけば実現できる</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
